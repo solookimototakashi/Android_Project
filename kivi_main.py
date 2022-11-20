@@ -8,7 +8,7 @@ from kivy.lang import Builder
 import japanize_kivy
 
 # sample.kvを読み込む
-Builder.load_file("C://Users/もちねこ/Desktop/MyVSProject/Android_Project/Sample.kv")
+Builder.load_file("./sample.kv")
 
 # Windowの背景色を変更 (黒 → 白)
 Window.clearcolor = (1, 1, 1, 1)
