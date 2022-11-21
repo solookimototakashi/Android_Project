@@ -2,9 +2,10 @@
 from kivy.uix.label import Label
 
 
-class App(App):
+class HelloWorldApp(App):
     def build(self):
-        return Label(text="Nyanpasu")
+        return Label(text="Hello World")
 
 
-App().run()
+if __name__ == "__main__":
+    HelloWorldApp().run()
