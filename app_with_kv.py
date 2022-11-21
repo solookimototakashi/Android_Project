@@ -15,28 +15,22 @@ import os
 # 日本語を適用させる
 import japanize_kivy
 
-kv_dir = os.path.join(os.path.dirname(__file__), "template")
-kv_url = os.path.join(kv_dir, "test.kv")
+# kv_dir = os.path.join(os.path.dirname(__file__), "template")
+# kv_url = os.path.join(kv_dir, "test.kv")
+kv_url = os.path.join(os.path.dirname(__file__), "test.kv")
+
 # sample.kvを読み込む
 Builder.load_file(kv_url)
 
 
-class TextWidget(Widget):
-    text = StringProperty("")
+class TextWidget(Widget):  # Kvファイル内でレイアウトしているクラス定義
+    pass
 
 
-#     def __init__(self, **kwargs):
-#         super(TextWidget, self).__init__(**kwargs)
-#         self.text = "default"
-
-#     def onButtonClick(self):
-#         self.text = "Hello Kivy"
-
-
-class TestApp(App):
+class TestApp(App):  # メイン処理のクラス定義
     def __init__(self, **kwargs):
         super(TestApp, self).__init__(**kwargs)
-        self.title = "KivyTest"
+        self.title = "Sample"  # ウィンドウのタイトル名
 
     def build(self):
         return TextWidget()
