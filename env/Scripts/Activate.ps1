@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\もちねこ\Desktop\MyVSProject\Android_Project\env"
+$env:VIRTUAL_ENV="C:\Users\solookimoto\GitHub\Android_Project\env"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

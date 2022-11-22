@@ -1,4 +1,4 @@
-#!c:\users\もちねこ\desktop\myvsproject\android_project\env\scripts\python.exe
+#!c:\users\solookimoto\github\android_project\env\scripts\python.exe
 
 # Author:
 # Contact: grubert@users.sf.net

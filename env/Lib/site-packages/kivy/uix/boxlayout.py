@@ -322,10 +322,10 @@ class BoxLayout(Layout):
                 else:
                     c.size = (w, h)
 
-    def add_widget(self, widget, *args, **kwargs):
+    def add_widget(self, widget, index=0, canvas=None):
         widget.fbind('pos_hint', self._trigger_layout)
-        return super(BoxLayout, self).add_widget(widget, *args, **kwargs)
+        return super(BoxLayout, self).add_widget(widget, index, canvas)
 
-    def remove_widget(self, widget, *args, **kwargs):
+    def remove_widget(self, widget):
         widget.funbind('pos_hint', self._trigger_layout)
-        return super(BoxLayout, self).remove_widget(widget, *args, **kwargs)
+        return super(BoxLayout, self).remove_widget(widget)

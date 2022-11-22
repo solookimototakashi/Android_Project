@@ -79,5 +79,5 @@ if 'KIVY_DOC' not in environ:
             GL_MAX_TEXTURE_IMAGE_UNITS)[0]))
 
     # To be able to use our GL provider, we must have a window
-    # Automatically import window auto to ensure the default window creation
+    # Automaticly import window auto to ensure the default window creation
     import kivy.core.window  # NOQA

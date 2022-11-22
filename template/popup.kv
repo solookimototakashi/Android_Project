@@ -1,0 +1,25 @@
+#:kivy 1.1.0
+
+<PopupTest>
+    orientation: 'vertical'
+
+    Label:
+        text: 'Please Popup Button'
+        center: root.center
+
+    BoxLayout:
+        Button:
+            text: 'Popup'
+            on_release: root.popup_open()
+
+<PopupMenu>
+    orientation: 'vertical'
+
+    Label:
+        text: 'Please Close Button'
+        center: root.center
+
+    BoxLayout:
+        Button:
+            text: 'Close'
+            on_release: root.popup_close()

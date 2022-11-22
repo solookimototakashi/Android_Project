@@ -1,0 +1,17 @@
+#:kivy 1.1.0
+
+<MainScreen>:
+    BoxLayout:
+        Button:
+            text: 'Move to SubView'
+            on_press: root.manager.current = 'sub'
+        Button:
+            text: 'Close'
+
+<SubScreen>:
+    BoxLayout:
+        Button:
+            text: 'No View'
+        Button:
+            text: 'Move to MainView'
+            on_press: root.manager.current = 'main'

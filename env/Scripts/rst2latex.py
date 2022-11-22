@@ -1,4 +1,4 @@
-#!c:\users\もちねこ\desktop\myvsproject\android_project\env\scripts\python.exe
+#!c:\users\solookimoto\github\android_project\env\scripts\python.exe
 
 # $Id: rst2latex.py 8956 2022-01-20 10:11:44Z milde $
 # Author: David Goodger <goodger@python.org>

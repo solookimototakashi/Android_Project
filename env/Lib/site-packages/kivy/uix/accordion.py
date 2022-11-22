@@ -264,17 +264,15 @@ class AccordionItem(FloatLayout):
         fbind('title_args', trigger_title)
         trigger_title()
 
-    def add_widget(self, *args, **kwargs):
+    def add_widget(self, widget):
         if self.container is None:
-            super(AccordionItem, self).add_widget(*args, **kwargs)
-            return
-        self.container.add_widget(*args, **kwargs)
+            return super(AccordionItem, self).add_widget(widget)
+        return self.container.add_widget(widget)
 
-    def remove_widget(self, *args, **kwargs):
+    def remove_widget(self, widget):
         if self.container:
-            self.container.remove_widget(*args, **kwargs)
-            return
-        super(AccordionItem, self).remove_widget(*args, **kwargs)
+            self.container.remove_widget(widget)
+        super(AccordionItem, self).remove_widget(widget)
 
     def on_collapse(self, instance, value):
         accordion = self.accordion
@@ -371,11 +369,13 @@ class Accordion(Widget):
         fbind('pos', update)
         fbind('min_space', update)
 
-    def add_widget(self, widget, *args, **kwargs):
+    def add_widget(self, widget, *largs):
         if not isinstance(widget, AccordionItem):
             raise AccordionException('Accordion accept only AccordionItem')
+
         widget.accordion = self
-        super(Accordion, self).add_widget(widget, *args, **kwargs)
+        ret = super(Accordion, self).add_widget(widget, *largs)
+        return ret
 
     def select(self, instance):
         if instance not in self.children:

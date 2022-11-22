@@ -1,0 +1,20 @@
+#:kivy 1.1.0
+
+<MyLayout>
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        padding: 20
+        spacing: 20
+        
+        Image:
+            source: "curry.jpg"
+            allow_stretch: True
+            kepp_ratio: True
+            
+        Button:
+            text: "Delicious Curry!!"
+            pos_hint: {"center_x": 0.5}
+            size_hint: (None, None)
+            width: 200
+            height: 50

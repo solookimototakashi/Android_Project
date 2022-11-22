@@ -1,4 +1,4 @@
-#!c:\users\もちねこ\desktop\myvsproject\android_project\env\scripts\python.exe
+#!c:\users\solookimoto\github\android_project\env\scripts\python.exe
 
 # $Id: rstpep2html.py 8927 2022-01-03 23:50:05Z milde $
 # Author: David Goodger <goodger@python.org>

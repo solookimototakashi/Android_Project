@@ -1,4 +1,4 @@
-#!c:\users\もちねこ\desktop\myvsproject\android_project\env\scripts\python.exe
+#!c:\users\solookimoto\github\android_project\env\scripts\python.exe
 
 # $Id: rst2odt_prepstyles.py 8932 2022-01-05 14:59:31Z milde $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>

@@ -1,4 +1,4 @@
-#!c:\users\もちねこ\desktop\myvsproject\android_project\env\scripts\python.exe
+#!c:\users\solookimoto\github\android_project\env\scripts\python.exe
 # :Copyright: © 2015 Günter Milde.
 # :License: Released under the terms of the `2-Clause BSD license`_, in short:
 #
