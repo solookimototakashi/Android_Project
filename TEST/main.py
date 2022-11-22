@@ -20,7 +20,7 @@ import learning
 
 class MyPaintWidget(Widget):
     line_width = 20  # 線の太さ
-    color = get_color_from_hex('#ffffff')  # 線の色
+    color = get_color_from_hex('#ffffff')
 
     def on_touch_down(self, touch):
         if Widget.on_touch_down(self, touch):
@@ -37,7 +37,6 @@ class MyPaintWidget(Widget):
 
 
 class MyCanvasWidget(Widget):
-
     def clear_canvas(self):
         MyPaintWidget.clear_canvas(self)
 
@@ -47,6 +46,9 @@ class MyPaintApp(App):
     def __init__(self, **kwargs):
         super(MyPaintApp, self).__init__(**kwargs)
         self.title = '手書き数字認識テスト'
+
+        # 学習を行う
+        self.model = learning.learn_MNIST()
 
     def build(self):
         self.painter = MyCanvasWidget()
@@ -59,7 +61,16 @@ class MyPaintApp(App):
         self.painter.ids['paint_area'].set_color()  # クリアした後に色を再びセット
 
     def predict(self):
-        pass  # ここで自分の書いた手書き数字の認識結果を表示させたい
+        self.painter.export_to_png('canvas.png')  # 画像を一旦保存する
+
+        # Pillowで読み込み、余計な部分を切り取る。またグレースケールにも変換
+        image = Image.open('canvas.png').crop((0, 0, 600, 600)).convert('L')
+        # リサイズ
+        image = image.resize((28, 28))
+        image = np.array(image)
+        image = image.reshape(1, 784)
+        ans = self.model.predict(image)
+        print('This Digit is ... ', np.argmax(ans))
 
 
 if __name__ == '__main__':
