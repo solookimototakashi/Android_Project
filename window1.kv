@@ -1,0 +1,19 @@
+#:kivy 1.1.0
+
+<Window1@BoxLayout>:
+    orientation: "vertical"
+
+    ActionBar:
+        ActionView:
+
+            ActionPrevious:
+                title: 'ウィンドウ1'
+                with_previous: False
+
+            ActionButton:
+                text: '切り替え'
+                on_press: print("change disp window 1"); app.root.change_disp2()
+
+    BoxLayout:
+        Label:
+            text: '画面1'

@@ -42,6 +42,7 @@ class MyPaintWidget(Widget):
 
     def on_touch_move(self, touch):
         if touch.ud:    # スライダーを動かす際のエラーを解除するため
+            print(touch.ud['line'].points)
             touch.ud['line'].points += [touch.x, touch.y]
 
     def set_color(self, new_color):
