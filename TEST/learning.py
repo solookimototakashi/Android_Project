@@ -70,7 +70,7 @@ def learn_MNIST():
     print("test accuracy：", score[1])
 
     # モデルを保存,削除
-    model.save("kerastest.h5")
+    model.save("model.h5")
     # del model
 
     return model
@@ -86,7 +86,7 @@ def load_MNIST():
     # y_test = np_utils.to_categorical(y_test)
 
     #学習済モデルをロード
-    model = load_model("kerastest.h5")
+    model = load_model("model.h5")
 
     # #学習実行
     # hist = model.fit(X_train, y_train, batch_size=200, verbose=1, 
@@ -97,6 +97,6 @@ def load_MNIST():
     # print("正解率(acc)：", score[1])
 
     # #モデルを保存
-    # model.save("kerastest.h5")
+    # model.save("model.h5")
 
     return model

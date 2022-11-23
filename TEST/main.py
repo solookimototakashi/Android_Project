@@ -64,24 +64,24 @@ class MyPaintApp(App):
     def predict(self):
         self.painter.export_to_png('canvas.png')  # 画像を一旦保存する
 
-        # # Pillowで読み込み、余計な部分を切り取る。またグレースケールにも変換
-        # image = Image.open('canvas.png').crop((0, 0, 600, 600)).convert('L')
-        # # リサイズ
-        # image = image.resize((28, 28))
-        # image = np.array(image)
-        # image = image.reshape(1, 784)
-        # ans = self.model.predict(image)
-        # print('This Digit is ... ', np.argmax(ans))
+        # Pillowで読み込み、余計な部分を切り取る。またグレースケールにも変換
+        image = Image.open('canvas.png').crop((0, 0, 600, 600)).convert('L')
+        # リサイズ
+        image = image.resize((14, 14))
+        image = np.array(image)
+        image = image.reshape(1, 196)
+        ans = self.model.predict(image)
+        print('This Digit is ... ', np.argmax(ans))
 
-        Xt = []
-        img = cv2.imread("canvas.png", 0)
-        img = cv2.resize(img,(28, 28), cv2.INTER_CUBIC)
+        # Xt = []
+        # img = cv2.imread("canvas.png", 0)
+        # img = cv2.resize(img,(28, 28), cv2.INTER_CUBIC)
 
-        Xt.append(img)
-        Xt = np.array(Xt)/255
+        # Xt.append(img)
+        # Xt = np.array(Xt)/255
 
-        result = self.model.predict(Xt)
-        print(result[0])        
+        # result = self.model.predict(Xt)
+        # print(result[0])        
 
 if __name__ == '__main__':
     Window.clearcolor = get_color_from_hex('#000000')   # ウィンドウの色を黒色に変更する
