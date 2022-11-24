@@ -29,7 +29,7 @@ import Read_Func
 
 
 class MyPaintWidget(Widget):
-    line_width = 20  # 線の太さ
+    line_width = 5  # 線の太さ
     color = get_color_from_hex('#ffffff')
 
     def on_touch_down(self, touch):
@@ -74,7 +74,7 @@ class MyPaintApp(App):
         self.painter.ids['paint_area'].set_color()  # クリアした後に色を再びセット
 
     def predict(self):
-        self.painter.export_to_png('canvas.png',float=0.1)  # 画像を一旦保存する       
+        # self.painter.export_to_png('canvas.png',float=0.1)  # 画像を一旦保存する       
 
         #2 各種設定  
         train_data_path = os.path.join(os.path.dirname(__file__),'Japanese_text_dataset') # ここを変更。
@@ -82,21 +82,21 @@ class MyPaintApp(App):
             if current_dir == train_data_path:
                 fol_list = [os.path.join(current_dir,sub_dirs_item) for sub_dirs_item in sub_dirs]
 
-        image_width = 14   # ここを変更
-        image_height = 14  # ここを変更
-        color_setting = 1  # ここを変更。利用する学習済みモデルのカラー形式と同じにする
+        image_width = 28   # ここを変更
+        image_height = 28  # ここを変更
+        color_setting = 3  # ここを変更。利用する学習済みモデルのカラー形式と同じにする
         if color_setting == 1:
             img = cv2.imread("canvas.png", 0)
-            h, w, c = img.shape
-            img2 = img[0 : int(h*0.85), 0 : w]
-            cv2.imwrite("canvas.png", img2)
-            img = cv2.imread("canvas.png", 0)                  
+            # h, w = img.shape
+            # img2 = img[0 : int(h*0.85), 0 : w]
+            # cv2.imwrite("canvas.png", img2)
+            # img = cv2.imread("canvas.png", 0)            
         elif color_setting == 3:
             img = cv2.imread("canvas.png", 1)
-            h, w, c = img.shape
-            img2 = img[0 : int(h*0.85), 0 : w]
-            cv2.imwrite("canvas.png", img2)               
-            img = cv2.resize(img, (image_width, image_height))
+            # h, w, c = img.shape
+            # img2 = img[0 : int(h*0.85), 0 : w]
+            # cv2.imwrite("canvas.png", img2)               
+            # img = cv2.resize(img, (image_width, image_height))
             plt.imshow(img)
         if color_setting == 1:
             plt.gray()  
@@ -114,9 +114,8 @@ class MyPaintApp(App):
 
         for i, accuracy in enumerate(result):
             print('画像認識AIは「', os.path.basename(fol_list[i]), '」の確率を', int(accuracy * 100), '% と予測しました。')
-
-            print('-------------------------------------------------------')
             print('予測結果は、「', os.path.basename(fol_list[result.argmax()]),'」です。')
+            print('-------------------------------------------------------')
             # print(' \n\n　＊　「確率精度が低い画像」や、「間違えた画像」を再学習させて、オリジナルのモデルを作成してみてください。')
             # print(' \n　＊　「間違えた画像」を数枚データセットに入れるだけで正解できる可能性が向上するようでした。')
             # print(' \n　＊　何度も実行すると「WARNING:tensorflow」が表示されますが、結果は正常に出力できるようでした。')
