@@ -84,7 +84,7 @@ class MyPaintApp(App):
 
         image_width = 14   # ここを変更
         image_height = 14  # ここを変更
-        color_setting = 3  # ここを変更。利用する学習済みモデルのカラー形式と同じにする
+        color_setting = 1  # ここを変更。利用する学習済みモデルのカラー形式と同じにする
         if color_setting == 1:
             img = cv2.imread("canvas.png", 0)
             h, w, c = img.shape
