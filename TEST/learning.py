@@ -14,7 +14,7 @@ import numpy as np
 
 from keras.models import load_model
 
-def learn_MNIST():
+def learn_MNIST(image_width,color_setting):
     # MNISTデータのダウンロード
     # MNISTは60,000件の訓練用データと10,000件のテストデータを持つ
     # (a, b), (c, d) 2セットのタプル
@@ -70,12 +70,12 @@ def learn_MNIST():
     print("test accuracy：", score[1])
 
     # モデルを保存,削除
-    model.save("model.h5")
+    model.save(f"{image_width}_{color_setting}_model.h5")
     # del model
 
     return model
 
-def load_MNIST():
+def load_MNIST(image_width,color_setting):
     # # MNISTデータをロード
     # (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
@@ -86,7 +86,7 @@ def load_MNIST():
     # y_test = np_utils.to_categorical(y_test)
 
     #学習済モデルをロード
-    model = load_model("model.h5")
+    model = load_model(f"{image_width}_{color_setting}_model.h5")
 
     # #学習実行
     # hist = model.fit(X_train, y_train, batch_size=200, verbose=1, 

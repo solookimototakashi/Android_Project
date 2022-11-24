@@ -57,9 +57,13 @@ class MyPaintApp(App):
         super(MyPaintApp, self).__init__(**kwargs)
         self.title = '手書き数字認識テスト'
 
+        self.image_width = 14   # ここを変更
+        self.image_height = 14  # ここを変更
+        self.color_setting = 3  # ここを変更。利用する学習済みモデルのカラー形式と同じにする
+
         # 学習を行う
         # self.model = learning.learn_MNIST()
-        self.model = learning.load_MNIST()
+        self.model = learning.load_MNIST(self.image_width,self.color_setting)
         self.model.summary()
 
 
@@ -82,29 +86,27 @@ class MyPaintApp(App):
             if current_dir == train_data_path:
                 fol_list = [os.path.join(current_dir,sub_dirs_item) for sub_dirs_item in sub_dirs]
 
-        image_width = 28   # ここを変更
-        image_height = 28  # ここを変更
-        color_setting = 3  # ここを変更。利用する学習済みモデルのカラー形式と同じにする
-        if color_setting == 1:
+
+        if self.color_setting == 1:
             img = cv2.imread("canvas.png", 0)
             # h, w = img.shape
             # img2 = img[0 : int(h*0.85), 0 : w]
             # cv2.imwrite("canvas.png", img2)
             # img = cv2.imread("canvas.png", 0)            
-        elif color_setting == 3:
+        elif self.color_setting == 3:
             img = cv2.imread("canvas.png", 1)
             # h, w, c = img.shape
             # img2 = img[0 : int(h*0.85), 0 : w]
             # cv2.imwrite("canvas.png", img2)               
             # img = cv2.resize(img, (image_width, image_height))
             plt.imshow(img)
-        if color_setting == 1:
+        if self.color_setting == 1:
             plt.gray()  
             plt.show()
-        elif color_setting == 3:
+        elif self.color_setting == 3:
             plt.show()
 
-        img = img.reshape(image_width, image_height, color_setting).astype('float32')/255 
+        img = img.reshape(self.image_width, self.image_height, self.color_setting).astype('float32')/255 
         re_img = np.array([img])
 
         #5 予測と結果の表示等
