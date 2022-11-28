@@ -1,64 +1,77 @@
-import os
-os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
-import keras
-from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D
-from keras import backend as K
+# -*- coding: utf-8 -*-
+import numpy as np
+from keras.models import Sequential, model_from_json
+from keras.layers import Dense
+from keras.optimizers import RMSprop
 
-batch_size = 128
-num_classes = 10
-epochs = 12
+def main():
+    # 説明変数（訓練用データ、入力データ）の用意
+    x_train = np.array([[0.0, 0.0],
+                        [1.0, 0.0],
+                        [0.0, 1.0],
+                        [1.0, 1.0]])
+    # 目的変数（正解データ）
+    y_train = np.array([[0.0, 0.0],
+                        [1.0, 0.0],
+                        [1.0, 0.0],
+                        [0.0, 0.0]])
 
-# input image dimensions
-img_rows, img_cols = 28, 28
+    # モデル構築
+    model = Sequential()
 
-# the data, split between train and test sets
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+    # 中間層(入力数:input_dim = 2, ユニット数:units = 3) 
+    # Denseは全結合層のレイヤモジュール
+    model.add(Dense(activation='sigmoid', input_dim=2, units=3))
 
-if K.image_data_format() == 'channels_first':
-        x_train = x_train.reshape(x_train.shape[0], 1, img_rows, img_cols)
-        x_test = x_test.reshape(x_test.shape[0], 1, img_rows, img_cols)
-        input_shape = (1, img_rows, img_cols)
-else:
-        x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
-        x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
-        input_shape = (img_rows, img_cols, 1)
+    # 出力層(入力数:input_dim = 3だが、中間層のユニット数と同じなので省略可能, ユニット数:units = 2) 
+    model.add(Dense(units=2, activation='sigmoid'))
 
-x_train = x_train.astype('float32')
-x_test = x_test.astype('float32')
-x_train /= 255
-x_test /= 255
-print('x_train shape:', x_train.shape)
-print(x_train.shape[0], 'train samples')
-print(x_test.shape[0], 'test samples')
+    # 単純パーセプトロンをコンパイル（勾配法：RMSprop、損失関数：mean_squared_error、評価関数：accuracy）
+    model.compile(loss='mean_squared_error', optimizer=RMSprop(), metrics=['accuracy'])
 
-# convert class vectors to binary class matrices
-y_train = keras.utils.to_categorical(y_train, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)
+    # 学習（教師データでフィッティング、バッチサイズ：4, エポック数：1000）
+    history = model.fit(x_train, y_train, batch_size=4, epochs=3000)
 
-model = Sequential()
-model.add(Conv2D(32, kernel_size=(3, 3),
-                                 activation='relu',
-                                 input_shape=input_shape))
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
-model.add(Flatten())
-model.add(Dense(128, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(num_classes, activation='softmax'))
+    # 検証用データの用意
+    x_test = x_train
+    y_test = y_train
+       
+    # モデルの検証（性能評価）
+    test_loss, test_acc = model.evaluate(x_train, y_train, verbose=0)
+    print('test_loss:', test_loss) # 損失関数値（この値を最小化するようにパラメータ（重みやバイアス）の調整が行われる）
+    print('test_acc:', test_acc) # 精度
 
-model.compile(loss=keras.losses.categorical_crossentropy,
-                          optimizer=keras.optimizers.Adadelta(),
-                          metrics=['accuracy'])
+    # 検証用データをモデルに入力し、出力（予測値）を取り出す
+    predict_y = model.predict(x_test)
+    print("y_test:", y_test)  # 正解データ
+    print("predict_y:", predict_y)  # 予測データ
 
-model.fit(x_train, y_train,
-                  batch_size=batch_size,
-                  epochs=epochs,
-                  verbose=1,
-                  validation_data=(x_test, y_test))
-score = model.evaluate(x_test, y_test, verbose=0)
-print('Test loss:', score[0])
-print('Test accuracy:', score[1])
+    # 出力値をしきい値処理
+    threshold = 0.5
+    print("thresholded predict_y:", (predict_y > threshold).astype(np.int))
+
+if __name__ == '__main__':
+    main()
+
+    """
+    Epoch 3000/3000
+    4/4 [==============================] - 0s 169us/step - loss: 0.0771 - accuracy: 1.0000
+    test_loss: 0.07708477973937988
+
+    test_acc: 1.0
+
+    y_test: [
+    [0. 0.]
+    [1. 0.]
+    [1. 0.]
+    [0. 0.]]
+
+    predict_y: [[2.8050968e-01 5.3314846e-03]
+    [6.6344094e-01 1.4451070e-04]
+    [6.6060764e-01 1.5853217e-04]
+    [4.3820027e-01 3.6908728e-05]]
+    thresholded predict_y: [[0 0]
+    [1 0]
+    [1 0]
+    [0 0]]
+    """
