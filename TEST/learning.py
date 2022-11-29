@@ -12,8 +12,6 @@ from keras.layers import Conv2D, MaxPooling2D, Dropout, Reshape
 from keras.utils import np_utils
 import numpy as np
 
-from keras.models import load_model
-
 def learn_MNIST(image_width,color_setting):
     # MNISTデータのダウンロード
     # MNISTは60,000件の訓練用データと10,000件のテストデータを持つ
