@@ -1,3 +1,5 @@
+
+
 #1 ライブラリのインポート等
 import os
 os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
@@ -94,7 +96,7 @@ model.compile(loss='categorical_crossentropy',
 start_time = time.time()
 
 # ここを変更。必要に応じて「batch_size=」「epochs=」の数字を変更してみてください。
-history = model.fit(x_train,y_train, batch_size=32, epochs=10, verbose=1, validation_data=(x_test, y_test))
+history = model.fit(x_train,y_train, batch_size=1024, epochs=50, verbose=1, validation_data=(x_test, y_test))
 
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])

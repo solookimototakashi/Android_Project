@@ -119,7 +119,7 @@ class MyPaintApp(App):
 
         #5 予測と結果の表示等
 
-        prediction = self.model.predict(re_img, batch_size=64, verbose=0, steps=None)
+        prediction = self.model.predict(re_img, batch_size=1024, verbose=0, steps=None)
         result = prediction[0]
 
         for i, accuracy in enumerate(result):
